@@ -3,100 +3,118 @@ import os
 from datetime import datetime
 
 # ====================== CONFIGURATION ======================
-excel_file = 'BI Project Cover Athletes.xlsx'   # Your exact filename
+excel_file = 'BI Project Cover Athletes.xlsx'
 output_folder = 'cover_athletes_datasets'
 
 os.makedirs(output_folder, exist_ok=True)
 
-print(f"Loading your file: {excel_file}")
-df = pd.read_excel(excel_file)
+print(f"🔄 Loading: {excel_file}")
 
-print(f"Total rows: {len(df)}")
-print(f"Columns found: {list(df.columns)}\n")
+try:
+    df = pd.read_excel(excel_file)
+except Exception as e:
+    print(f"❌ Error: {e}")
+    print("   Run: pip install openpyxl")
+    exit()
 
-# Basic cleaning
-df.columns = [col.strip().replace(' ', '_').replace('/', '_').replace('-', '_') for col in df.columns]
-df = df.dropna(how='all')  # Remove completely empty rows
+print(f"✅ Loaded {len(df)} rows | Columns: {list(df.columns)}\n")
 
-# ====================== DATASET 1: All Raw Data (for reference) ======================
+# === Basic cleaning ===
+df.columns = [col.strip().replace(' ', '_').replace('/', '_').replace('-', '_').lower() for col in df.columns]
+
+# Find the player name column (common names: player, name, athlete, full_name, etc.)
+player_col = None
+for possible in ['player', 'player_name', 'name', 'athlete', 'full_name', 'cover_athlete']:
+    if possible in df.columns:
+        player_col = possible
+        break
+
+if not player_col:
+    print("⚠️ Could not find a player name column. Using first column as fallback.")
+    player_col = df.columns[0]
+
+# Create a clean, standardized player name key for merging
+df['player_name_key'] = (df[player_col]
+                         .astype(str)
+                         .str.strip()
+                         .str.replace(r'\s+', ' ', regex=True)   # fix multiple spaces
+                         .str.title())                           # Proper case
+
+print(f"✅ Using '{player_col}' as player name → created 'player_name_key' for merging\n")
+
+# ====================== DATASET 1: Raw + Cleaned ======================
 raw_path = os.path.join(output_folder, '01_raw_cover_athletes.csv')
 df.to_csv(raw_path, index=False)
-print(f"✓ Dataset 1 - Raw data saved: {raw_path} ({len(df)} rows)")
+print(f"✅ 01_raw_cover_athletes.csv  ({len(df)} rows)")
 
-# ====================== DATASET 2: By Sport / Game Series ======================
-# Splits by game (Madden, CFB, NBA2K, etc.) - very useful for comparison
-if 'Game' in df.columns or 'Series' in df.columns or 'Game_Series' in df.columns:
-    game_col = next((col for col in df.columns if col.lower() in ['game', 'series', 'game_series']), None)
-    if game_col:
-        for game, group in df.groupby(game_col):
-            clean_name = str(game).replace(' ', '_').replace('/', '_')
-            path = os.path.join(output_folder, f'02_{clean_name}_athletes.csv')
-            group.to_csv(path, index=False)
-            print(f"✓ Dataset 2 - {game}: {len(group)} rows → {path}")
+# ====================== DATASET 2: By Game / Series ======================
+game_col = None
+for col in ['game', 'series', 'game_series', 'title', 'sport']:
+    if col in df.columns:
+        game_col = col
+        break
+
+if game_col:
+    for value, group in df.groupby(game_col):
+        clean_name = str(value).strip().replace(' ', '_').replace('/', '_')
+        path = os.path.join(output_folder, f'02_{clean_name}_athletes.csv')
+        group.to_csv(path, index=False)
+        print(f"✅ 02_{clean_name}_athletes.csv  ({len(group)} rows)")
 else:
-    print("No Game/Series column found. Skipping sport split.")
+    print("⚠️ No Game column found → skipping split by game")
 
-# ====================== DATASET 3: By Year / Season ======================
-# Great for time-based analysis (performance before/after being cover athlete)
+# ====================== DATASET 3: By Year ======================
 year_col = None
-for possible in ['Year', 'Season', 'Cover_Year', 'Release_Year']:
-    if possible in df.columns:
-        year_col = possible
+for col in ['year', 'season', 'cover_year', 'release_year']:
+    if col in df.columns:
+        year_col = col
         break
 
 if year_col:
-    for year, group in df.groupby(year_col):
-        path = os.path.join(output_folder, f'03_{year}_cover_athletes.csv')
+    for value, group in df.groupby(year_col):
+        path = os.path.join(output_folder, f'03_{int(value)}_cover_athletes.csv')
         group.to_csv(path, index=False)
-        print(f"✓ Dataset 3 - Year {year}: {len(group)} rows → {path}")
+        print(f"✅ 03_{int(value)}_cover_athletes.csv  ({len(group)} rows)")
 else:
-    print("No Year column found. Using random split instead for Dataset 3.")
+    print("⚠️ No Year column found → skipping split by year")
 
-# ====================== DATASET 4: By Position / Conference / Division (or random if not available) ======================
-position_col = None
-for possible in ['Position', 'Pos', 'Role', 'Conference', 'League']:
-    if possible in df.columns:
-        position_col = possible
+# ====================== DATASET 4: By Position or 3 Parts ======================
+pos_col = None
+for col in ['position', 'pos', 'role', 'conference', 'division']:
+    if col in df.columns:
+        pos_col = col
         break
 
-if position_col:
-    for value, group in df.groupby(position_col):
-        clean_value = str(value).replace(' ', '_').replace('/', '_')
-        path = os.path.join(output_folder, f'04_{position_col}_{clean_value}.csv')
+if pos_col:
+    for value, group in df.groupby(pos_col):
+        clean_value = str(value).strip().replace(' ', '_').replace('/', '_')
+        path = os.path.join(output_folder, f'04_{pos_col}_{clean_value}.csv')
         group.to_csv(path, index=False)
-        print(f"✓ Dataset 4 - {position_col} = {value}: {len(group)} rows → {path}")
+        print(f"✅ 04_{pos_col}_{clean_value}.csv  ({len(group)} rows)")
 else:
-    # Fallback: split into 3 roughly equal parts by rows (still useful)
+    print("⚠️ No Position column → creating 3 equal parts instead")
     df_shuffled = df.sample(frac=1, random_state=42).reset_index(drop=True)
     n = len(df_shuffled)
-    split1 = n // 3
-    split2 = 2 * split1
-    
-    df_shuffled.iloc[:split1].to_csv(os.path.join(output_folder, '04_part1_athletes.csv'), index=False)
-    df_shuffled.iloc[split1:split2].to_csv(os.path.join(output_folder, '04_part2_athletes.csv'), index=False)
-    df_shuffled.iloc[split2:].to_csv(os.path.join(output_folder, '04_part3_athletes.csv'), index=False)
-    
-    print(f"✓ Dataset 4 - Random split into 3 parts:")
-    print(f"   Part 1: {split1} rows")
-    print(f"   Part 2: {split2 - split1} rows")
-    print(f"   Part 3: {n - split2} rows")
+    s1 = n // 3
+    s2 = 2 * s1
+    df_shuffled.iloc[:s1].to_csv(os.path.join(output_folder, '04_part1_athletes.csv'), index=False)
+    df_shuffled.iloc[s1:s2].to_csv(os.path.join(output_folder, '04_part2_athletes.csv'), index=False)
+    df_shuffled.iloc[s2:].to_csv(os.path.join(output_folder, '04_part3_athletes.csv'), index=False)
+    print(f"✅ 04_part1_athletes.csv ({s1} rows)")
+    print(f"✅ 04_part2_athletes.csv ({s2-s1} rows)")
+    print(f"✅ 04_part3_athletes.csv ({n-s2} rows)")
 
 # ====================== SUMMARY ======================
-print("\n" + "="*70)
-print("✅ SUCCESS! All datasets created in folder: **cover_athletes_datasets**")
-print(f"Run time: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-print("\nRecommended structure for your GitHub:")
-print("   cover_athletes_datasets/")
-print("   ├── 01_raw_cover_athletes.csv")
-print("   ├── 02_Madden_athletes.csv     (or similar)")
-print("   ├── 03_2024_cover_athletes.csv")
-print("   └── 04_QB_athletes.csv         (or part1/part2/part3)")
-print("\nNext steps:")
-print("1. Run this script (python split_cover_athletes.py)")
-print("2. Add the folder + script to GitHub")
-print("3. In your report/presentation, explain:")
-print("   → You split the single Excel into 4+ domain-specific datasets")
-print("   → They become much more powerful when joined (e.g. analyze performance change after being cover athlete)")
-print("   → You can later join with external stats (NFL stats, betting odds, etc.)")
+print("\n" + "="*80)
+print("🎉 ALL DATASETS CREATED SUCCESSFULLY!")
+print(f"Folder → {output_folder}")
+print("\nImportant for your project:")
+print("• Every CSV now has a column called **player_name_key**")
+print("• This standardized name is perfect for merging with other datasets")
+print("• You can later pull NFL/college stats, betting lines, performance data, etc.")
+print("   and join everything on player_name_key")
+print("\nFor your presentation say:")
+print("   'We split the cover athletes Excel into multiple datasets by game, year, and position.")
+print("    We also created a clean player_name_key column so all future data can be easily merged on player name.'")
 
-print("\nIf this split doesn't perfectly match your columns, reply with the list of column names from your Excel and I'll customize it instantly!")
+print(f"\nRun date: {datetime.now().strftime('%Y-%m-%d %H:%M')}")
