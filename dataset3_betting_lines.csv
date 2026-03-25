@@ -1,0 +1,21 @@
+Madden_Year,Team_Abbr,NFL_Season,Preseason_Win_Total_OU,Cover_Season_Actual_Wins,OU_Result,Source,Wins_vs_Line,Beat_Line
+2006,PHI,2005,9.5,6,Under,Westgate SuperBook via SportsOddsHistory,-3.5,No
+2007,SEA,2006,9.5,9,Under,Westgate SuperBook via SportsOddsHistory,-0.5,No
+2008,TEN,2007,6.5,10,Over,Westgate SuperBook via SportsOddsHistory,3.5,Yes
+2009,GB,2008,8.5,6,Under,Westgate SuperBook via SportsOddsHistory,-2.5,No
+2010,PIT,2009,8.5,9,Over,Westgate SuperBook via SportsOddsHistory,0.5,Yes
+2011,NO,2010,10.5,11,Over,Westgate SuperBook via SportsOddsHistory,0.5,Yes
+2012,CLE,2011,5.5,4,Under,Westgate SuperBook via SportsOddsHistory,-1.5,No
+2013,DET,2012,8.0,4,Under,Westgate SuperBook via SportsOddsHistory,-4.0,No
+2014,MIN,2013,7.0,5,Under,Westgate SuperBook via SportsOddsHistory,-2.0,No
+2015,SEA,2014,11.0,12,Over,Westgate SuperBook via SportsOddsHistory,1.0,Yes
+2016,NYG,2015,7.0,6,Under,Westgate SuperBook via SportsOddsHistory,-1.0,No
+2017,NE,2016,12.0,14,Over,Westgate SuperBook via SportsOddsHistory,2.0,Yes
+2018,NE,2017,12.5,13,Over,Westgate SuperBook via SportsOddsHistory,0.5,Yes
+2019,PIT,2018,10.0,9,Under,Westgate SuperBook via SportsOddsHistory,-1.0,No
+2020,KC,2019,10.5,12,Over,Westgate SuperBook via SportsOddsHistory,1.5,Yes
+2021,BAL,2020,11.5,11,Under,Westgate SuperBook via SportsOddsHistory,-0.5,No
+2022,KC,2021,12.0,12,Push,Westgate SuperBook via SportsOddsHistory,0.0,Push
+2024,BUF,2023,11.0,11,Push,Westgate SuperBook via SportsOddsHistory,0.0,Push
+2025,SF,2024,10.5,6,Under,nfelo.com / VegasInsider,-4.5,No
+2026,PHI,2025,10.5,11,Over,nfelo.com / VegasInsider,0.5,Yes

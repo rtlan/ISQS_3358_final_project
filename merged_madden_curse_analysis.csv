@@ -1,0 +1,21 @@
+Madden_Year,Athlete,Position,Team,Team_Abbr,NFL_Season,Salary_Avg_Per_Season,Pre_Cover_Wins,Pre_Cover_Losses,Cover_Season_Wins,Cover_Season_Losses,Win_Change,Games_Played_Cover_Season,Pct_Games_Played,Preseason_Win_Total_OU,Cover_Season_Actual_Wins,OU_Result,Market_Surprise,Beat_Line,Curse_Verdict,Key_Stat_Summary
+2006,Donovan McNabb,QB,Philadelphia Eagles,PHI,2005,14000000,13,3,6,10,-7,9,56.2,9.5,6,Under,-3.5,No,Cursed,"31 TD peak prior; missed ~8 games, 6-10 season"
+2007,Shaun Alexander,RB,Seattle Seahawks,SEA,2006,3840000,13,3,9,7,-4,10,62.5,9.5,9,Under,-0.5,No,Cursed,1880 yds/28 TD prior; 896 yds foot fracture
+2008,Vince Young,QB,Tennessee Titans,TEN,2007,13100000,8,8,10,6,2,7,43.8,6.5,10,Over,3.5,Yes,Mixed,ROY form; benched 9 TD/17 INT
+2009,Brett Favre,QB,Green Bay Packers,GB,2008,6900000,13,3,6,10,-7,16,100.0,8.5,6,Under,-2.5,No,Cursed,Favre traded to Jets; GB 6-10 without him
+2010,Troy Polamalu / Larry Fitzgerald,S / WR,Pittsburgh Steelers / Arizona Cardinals,PIT,2009,5875000,12,4,9,7,-3,5,31.2,8.5,9,Over,0.5,Yes,Cursed,Polamalu missed 11G MCL; Fitzgerald 1000+ yds
+2011,Drew Brees,QB,New Orleans Saints,NO,2010,20000000,13,3,11,5,-2,16,100.0,10.5,11,Over,0.5,Yes,Mixed,Won SB pre-cover; 33 TD but 22 INT cover season
+2012,Peyton Hillis,RB,Cleveland Browns,CLE,2011,900000,5,11,4,12,-1,10,62.5,5.5,4,Under,-1.5,No,Cursed,1117 yds/11 TD prior; 577 yds missed 6G
+2013,Calvin Johnson,WR,Detroit Lions,DET,2012,22600000,4,12,4,12,0,16,100.0,8.0,4,Under,-4.0,No,Mixed,1964 yds NFL record season
+2014,Adrian Peterson,RB,Minnesota Vikings,MIN,2013,8000000,10,6,5,10,-5,14,87.5,7.0,5,Under,-2.0,No,Cursed,Historic 2000-yd prior; 1000+ but dip + off-field
+2015,Richard Sherman,CB,Seattle Seahawks,SEA,2014,1350000,12,4,10,6,-2,16,100.0,11.0,12,Over,1.0,Yes,Mixed,INT drop but still All-Pro level
+2016,Odell Beckham Jr.,WR,New York Giants,NYG,2015,1210000,6,10,11,5,5,16,100.0,7.0,6,Under,-1.0,No,Mixed,96 rec/1450 yds/13 TD
+2017,Rob Gronkowski,TE,New England Patriots,NE,2016,1100000,14,2,13,3,-1,8,50.0,12.0,14,Over,2.0,Yes,Cursed,Multiple IR stints hamstring/back but SB ring
+2018,Tom Brady,QB,New England Patriots,NE,2017,25000000,13,3,11,5,-2,16,100.0,12.5,13,Over,0.5,Yes,Mixed,4500 yds/32 TD NFL MVP
+2019,Antonio Brown,WR,Pittsburgh Steelers,PIT,2018,3287000,13,3,9,6,-4,15,93.8,10.0,9,Under,-1.0,No,Cursed,"1000+ yds/15 TD but demanded trade, benched wk17"
+2020,Patrick Mahomes,QB,Kansas City Chiefs,KC,2019,45000000,12,4,14,2,2,15,93.8,10.5,12,Over,1.5,Yes,Broke It,26 TD/5 INT + Super Bowl MVP
+2021,Lamar Jackson,QB,Baltimore Ravens,BAL,2020,52000000,14,2,8,9,-6,12,75.0,11.5,11,Under,-0.5,No,Cursed,2882 pass yds/16 TD + 1005 rush in 12G
+2022,Patrick Mahomes / Tom Brady,QB / QB,Kansas City Chiefs / Tampa Bay Buccaneers,KC,2021,45000000,12,5,14,3,2,17,106.2,12.0,12,Push,0.0,Push,Broke It,Mahomes 37 TD; Brady 43 TD
+2024,Josh Allen,QB,Buffalo Bills,BUF,2023,55000000,11,6,13,4,2,17,106.2,11.0,11,Push,0.0,Push,Broke It,4306 yds/29 TD/18 INT career-high INTs
+2025,Christian McCaffrey,RB,San Francisco 49ers,SF,2024,19000000,12,5,6,11,-6,4,25.0,10.5,6,Under,-4.5,No,Cursed,202 rush yds/0 TD only 4G knee/Achilles
+2026,Saquon Barkley,RB,Philadelphia Eagles,PHI,2025,20600000,14,3,11,6,-3,16,100.0,10.5,11,Over,0.5,Yes,Mixed,1140 rush/7 TD from 2005 rush/13 TD
